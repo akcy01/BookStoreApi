@@ -24,4 +24,8 @@
     <ProjectReference Include="..\BookStore.Data\BookStore.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BookOperations\UpdateBooks\" />
+  </ItemGroup>
+
 </Project>

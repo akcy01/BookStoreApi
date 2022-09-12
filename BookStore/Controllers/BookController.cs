@@ -1,4 +1,5 @@
 ﻿using BookStore.BookOperations.CreateBooks;
+using BookStore.BookOperations.GetBookDetail;
 using BookStore.BookOperations.GetBooks;
 using BookStore.Data;
 using BookStore.Models;
@@ -24,10 +25,20 @@ namespace BookStore.Controllers
             return Ok(result);
         }
         [HttpGet("{id}")]
-        public Book GetBookById(int id)
+        public IActionResult GetBookById(int id)
         {
-            var book = _context.Books.Where(x => x.Id == id).SingleOrDefault();
-            return book;
+            BookDetailViewModel result;
+            GetBookDetailQuery bookDetail = new GetBookDetailQuery(_context);
+            try
+            {
+                bookDetail.BookId = id;
+                result = bookDetail.Handle();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(result);
         }
         [HttpPost]
         public IActionResult AddBook(CreateBookModel newBook)
