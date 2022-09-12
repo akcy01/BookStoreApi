@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data
 {
-    public class BookStoreDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public BookStoreDbContext(DbContextOptions<BookStoreDbContext> options): base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
 
         }
