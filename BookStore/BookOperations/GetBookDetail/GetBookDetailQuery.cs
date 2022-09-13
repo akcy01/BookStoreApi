@@ -1,4 +1,5 @@
-﻿using BookStore.Common;
+﻿using AutoMapper;
+using BookStore.Common;
 using BookStore.Data;
 
 namespace BookStore.BookOperations.GetBookDetail
@@ -6,10 +7,12 @@ namespace BookStore.BookOperations.GetBookDetail
     public class GetBookDetailQuery
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly IMapper _mapper;
         public int BookId { get; set; }
-        public GetBookDetailQuery(ApplicationDbContext context)
+        public GetBookDetailQuery(ApplicationDbContext context,IMapper mapper)
         {
             _dbContext = context;   
+            _mapper = mapper;   
         }
         public BookDetailViewModel Handle()
         {
@@ -18,11 +21,7 @@ namespace BookStore.BookOperations.GetBookDetail
             {
                 throw new Exception("The book is not found");
             }
-            BookDetailViewModel viewModel = new BookDetailViewModel();
-            viewModel.Title = book.Title;
-            viewModel.PageCount = book.PageCount;
-            viewModel.PublishDate = book.PublishYear.Date.ToString("mm/dd/yy");
-            viewModel.Genre = ((GenreEnum)book.GenreId).ToString();
+            BookDetailViewModel viewModel = _mapper.Map<BookDetailViewModel>(book);
             return viewModel;
         }
     }
