@@ -1,6 +1,8 @@
 ﻿using BookStore.BookOperations.CreateBooks;
+using BookStore.BookOperations.DeleteBook;
 using BookStore.BookOperations.GetBookDetail;
 using BookStore.BookOperations.GetBooks;
+using BookStore.BookOperations.UpdateBooks;
 using BookStore.Data;
 using BookStore.Models;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +49,37 @@ namespace BookStore.Controllers
             try
             {
                 command.Model = newBook;
+                command.Handle();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(int id,UpdateBookModel updBook)
+        {
+            try
+            {
+                UpdateBookCommand command = new UpdateBookCommand(_context);
+                command.BookId = id;
+                command.Model = updBook;
+                command.Handle();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
+        }
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            try
+            {
+                DeleteBookCommand command = new DeleteBookCommand(_context);
+                command.BookId = id;
                 command.Handle();
             }
             catch (Exception ex)
