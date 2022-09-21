@@ -1,8 +1,11 @@
 using BookStore.Data;
 using BookStore.Middlewares;
+using BookStore.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
 
 // Add services to the container.
 var connString = builder.Configuration.GetConnectionString("DefaultConnection");
