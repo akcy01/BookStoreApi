@@ -5,8 +5,8 @@ namespace BookStore.GenreOperations.DeleteGenre
     public class DeleteGenreCommand
     {
         public int GenreId { get; set; }
-        private readonly ApplicationDbContext _context;
-        public DeleteGenreCommand(ApplicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public DeleteGenreCommand(IApplicationDbContext context)
         {
             _context = context;
         }

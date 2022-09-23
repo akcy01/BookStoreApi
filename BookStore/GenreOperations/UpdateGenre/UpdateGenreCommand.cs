@@ -6,9 +6,9 @@ namespace BookStore.GenreOperations.UpdateGenre
     {
         public int GenreId { get; set; }
         public UpdateGenreModel Model { get; set; }
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public UpdateGenreCommand(ApplicationDbContext context)
+        public UpdateGenreCommand(IApplicationDbContext context)
         {
             _context = context;
         }
@@ -23,7 +23,7 @@ namespace BookStore.GenreOperations.UpdateGenre
             {
                 throw new InvalidOperationException("The is already exist");
             }
-            genre.Name = Model.Name.Trim() == default ? Model.Name : genre.Name;
+            genre.Name = Model.Name.Trim() == default ? genre.Name : Model.Name;
             genre.IsActive = Model.IsActive;
             _context.SaveChanges();
         }

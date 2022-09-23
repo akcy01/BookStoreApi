@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<ILoggerService, ConsoleLogger>();
+builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 
 // Add services to the container.
 var connString = builder.Configuration.GetConnectionString("DefaultConnection");

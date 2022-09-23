@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
@@ -17,5 +17,9 @@ namespace BookStore.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Genre> Genres { get; set; }
 
+        public override int SaveChanges() /* both doing the job of DbContext and being accessed from interface */
+        {
+            return base.SaveChanges();
+        }
     }
 }

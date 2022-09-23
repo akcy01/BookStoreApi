@@ -8,10 +8,10 @@ namespace BookStore.GenreOperations.GetGenreDetail
     public class GetGenreDetailQuery
     {
         public int GenreId { get; set; }
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetGenreDetailQuery(ApplicationDbContext context, IMapper mapper)
+        public GetGenreDetailQuery(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

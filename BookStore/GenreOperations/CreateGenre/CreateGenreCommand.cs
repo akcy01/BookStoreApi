@@ -6,8 +6,8 @@ namespace BookStore.GenreOperations.CreateGenre
     public class CreateGenreCommand
     {
         public CreateGenreModel Model { get; set; }
-        private readonly ApplicationDbContext _context;
-        public CreateGenreCommand(ApplicationDbContext context)
+        private readonly IApplicationDbContext _context;
+        public CreateGenreCommand(IApplicationDbContext context)
         {
             _context = context;
         }
