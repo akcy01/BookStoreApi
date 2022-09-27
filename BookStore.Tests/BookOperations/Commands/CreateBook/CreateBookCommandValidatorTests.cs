@@ -37,5 +37,40 @@ namespace BookStore.Tests.BookOperations.Commands.CreateBook
             /* Assert */
             result.Errors.Count.Should().BeGreaterThan(0);
         }
+        [Fact]
+        public void WhenDateTimeEqualNowIsGiven_ShouldBeReturnError()
+        {
+            /* Arrange */
+            CreateBookCommand command = new CreateBookCommand(null, null);
+            command.Model = new CreateBookModel()
+            {
+                Title = "DenemeTestDeneme",
+                PageCount = 200,
+                GenreId = 1,
+                PublishDate = DateTime.Now.Date
+            };
+            /* Act */
+            CreateBookCommandValidator validate = new CreateBookCommandValidator();
+            var error = validate.Validate(command);
+            /* Assert */
+            error.Errors.Count.Should().BeGreaterThan(0);
+        }
+        [Fact]
+        public void WhenValidInputsAreGiven_Validator_ShouldNotBeReturnError()
+        {
+            CreateBookCommand command = new CreateBookCommand(null, null);
+            command.Model = new CreateBookModel()
+            {
+                Title = "DenemeTestDenemeDebene",
+                PageCount = 200,
+                GenreId = 1,
+                PublishDate = DateTime.Now.Date.AddYears(-2)
+            };
+
+            CreateBookCommandValidator validate = new CreateBookCommandValidator();
+            var error = validate.Validate(command);
+
+            error.Errors.Count.Should().Be(0);
+        }
     }
 }

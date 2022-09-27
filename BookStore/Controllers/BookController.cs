@@ -7,11 +7,13 @@ using BookStore.BookOperations.UpdateBooks;
 using BookStore.Data;
 using BookStore.Models;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -52,17 +54,9 @@ namespace BookStore.Controllers
         public IActionResult AddBook(CreateBookModel newBook)
         {
             CreateBookCommand command = new CreateBookCommand(_context,_mapper);
-            //try
-            //{
-                command.Model = newBook;
-                CreateBookCommandValidator validator = new CreateBookCommandValidator();
-                validator.ValidateAndThrow(command);
-                command.Handle();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
+            command.Model = newBook;
+            CreateBookCommandValidator validator = new CreateBookCommandValidator();
+            validator.ValidateAndThrow(command);
             return Ok();
         }
         [HttpPut("{id}")]

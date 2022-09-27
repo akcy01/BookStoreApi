@@ -38,5 +38,23 @@ namespace BookStore.Tests.BookOperations.Commands.CreateBook
                 .Invoking(() => command.Handle())
                 .Should().Throw<InvalidOperationException>().And.Message.Should().Be("The book is already exist.");
         } 
+        [Fact]
+        public void WhenValidInputsAreGiven_Book_ShouldBeCreated()
+        {
+            /* Arrange */
+            CreateBookCommand command = new CreateBookCommand(__context,__mapper);
+            CreateBookModel model = new CreateBookModel() { Title = "DenemeTitleDenemeDebene", PageCount = 1000, GenreId = 2, PublishDate = DateTime.Now.AddYears(-2) };
+            command.Model = model;
+
+            /* Act */
+            FluentActions.Invoking(() => command.Handle()).Invoke();
+
+            /* Assert */
+            var book = __context.Books.SingleOrDefault(book => book.Title == model.Title);
+            book.Should().NotBeNull();
+            book.PageCount.Should().Be(model.PageCount);
+            //book.PublishYear.Should().Be(model.PublishDate);
+            book.GenreId.Should().Be(model.GenreId);
+        }
     }
 }
