@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="BookOperations\Queries\" />
+    <Folder Include="GenreOperations\" />
   </ItemGroup>
 
 </Project>
