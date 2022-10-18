@@ -29,5 +29,14 @@ namespace BookStore.Tests.GenreOperations.Commands.DeleteGenre
 
             result.Errors.Count.Should().BeGreaterThan(0);
         }
+        [Fact]
+        public void WhenValidInputIsGiven_ValidatorShouldNotBeReturnError()
+        {
+            DeleteGenreCommand command = new DeleteGenreCommand(__context);
+            command.GenreId= 2;
+
+            FluentActions.Invoking(() => command.Handle()).Should().NotThrow();
+
+        }
     }
 }
